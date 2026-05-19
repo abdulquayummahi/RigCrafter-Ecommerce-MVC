@@ -26,7 +26,7 @@ The application strictly follows an N-Tier architecture to ensure a clear separa
 
 ### Security & Authentication
 ![Login Screen](assets/Login.png)
-![Registration Screen](assets/Register.png)
+![Registration Screen](assets/Regeister.png)
 
 ### Platform Interface
 ![Platform View 1](assets/1.png)
