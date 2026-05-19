@@ -24,20 +24,20 @@ The application strictly follows an N-Tier architecture to ensure a clear separa
 
 ## 📸 Application Gallery
 
-### 1. The Hardware Catalog
-![Hardware Catalog](1.png)
+### Security & Authentication
+![Login Screen](Login.png)
+![Registration Screen](Register.png)
 
-### 2. Shopping Cart & Session State
-![Shopping Cart](2.png)
-
-### 3. User Dashboard & Order History
-![User Dashboard](3.png)
-
-### 4. Secure Admin Panel (Order Management)
-![Admin Panel](4.png)
-
-### 5. Inventory Management (CRUD Operations)
-![Inventory Management](5.png)
+### Platform Interface
+![Platform View 1](1.png)
+![Platform View 2](2.png)
+![Platform View 3](3.png)
+![Platform View 4](4.png)
+![Platform View 5](5.png)
+![Platform View 6](6.png)
+![Platform View 7](7.png)
+![Platform View 8](8.png)
+![Platform View 9](9.png)
 
 ## 🛠️ Local Setup & Installation
 
