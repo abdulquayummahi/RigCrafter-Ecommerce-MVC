@@ -1,0 +1,43 @@
+﻿@model List<RigCrafter.DAL.Models.Product>
+@{ ViewData["Title"] = "Inventory Management"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-danger">📦 Manage Inventory</h2>
+    <div>
+        <a asp-action="AddProduct" class="btn btn-success fw-bold">+ Add New Product</a>
+        <a asp-action="Index" class="btn btn-outline-secondary fw-bold">Back to Orders</a>
+    </div>
+</div>
+
+<div class="table-responsive shadow-sm">
+    <table class="table table-bordered table-hover align-middle mb-0">
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white">
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td class="fw-bold">@p.Id</td>
+                <td class="fw-bold">@p.Name</td>
+                <td>@p.Category.Name</td>
+                <td class="text-success fw-bold">$@p.Price</td>
+                <td class="@(p.StockQuantity < 5 ? "text-danger fw-bold" : "")">@p.StockQuantity</td>
+                <td>
+                    <form asp-action="DeleteProduct" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="id" value="@p.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger fw-bold">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

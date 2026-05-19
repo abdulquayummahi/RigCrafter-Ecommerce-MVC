@@ -1,0 +1,55 @@
+﻿@model List<RigCrafter.DAL.Models.Order>
+@{
+    ViewData["Title"] = "My Order History";
+}
+
+<h2 class="fw-bold mb-4">My Order History</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">You haven't placed any orders yet. <a asp-controller="Product" asp-action="Index">Start building your rig!</a></div>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div class="card shadow-sm mb-4 border-secondary">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>Order #:</strong> @order.Id <br />
+                    <small>Placed on: @order.OrderDate.ToString("MMM dd, yyyy - hh:mm tt")</small>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-warning text-dark fs-6">Status: @order.OrderStatus</span><br />
+                    <span class="fw-bold text-success">Total: $@order.TotalAmount</span>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover table-borderless mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-3">Hardware</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in order.OrderDetails)
+                        {
+                            <tr>
+                                <td class="ps-3 fw-bold">@item.Product.Name</td>
+                                <td>$@item.UnitPrice</td>
+                                <td>@item.Quantity</td>
+                                <td class="text-success">$@(item.UnitPrice * item.Quantity)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer bg-white text-muted small">
+                <strong>Shipping To:</strong> @order.ShippingAddress
+            </div>
+        </div>
+    }
+}

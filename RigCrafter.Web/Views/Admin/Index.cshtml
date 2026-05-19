@@ -1,0 +1,46 @@
+﻿@model List<RigCrafter.DAL.Models.Order>
+@{ ViewData["Title"] = "Admin Command Center"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-danger mb-0">⚙️ Admin Dashboard: Order Management</h2>
+    <a asp-controller="Admin" asp-action="ManageProducts" class="btn btn-dark fw-bold">📦 Manage Inventory</a>
+</div>
+
+<div class="table-responsive shadow-sm">
+    <table class="table table-bordered table-hover align-middle mb-0">
+        <thead class="table-dark">
+            <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Date</th>
+                <th>Shipping Address</th>
+                <th>Total Amount</th>
+                <th>Status Control</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white">
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td class="fw-bold">#@order.Id</td>
+                    <td class="fw-bold text-primary">@order.User.FullName</td>
+                    <td>@order.OrderDate.ToString("MMM dd, yyyy")</td>
+                    <td>@order.ShippingAddress</td>
+                    <td class="text-success fw-bold">$@order.TotalAmount</td>
+                    <td>
+                        <form asp-controller="Admin" asp-action="UpdateStatus" method="post" class="d-flex">
+                            <input type="hidden" name="orderId" value="@order.Id" />
+                            <select name="newStatus" class="form-select form-select-sm me-2 fw-bold">
+                                <option value="Processing" selected="@(order.OrderStatus == "Processing")">Processing</option>
+                                <option value="Shipped" selected="@(order.OrderStatus == "Shipped")">Shipped</option>
+                                <option value="Delivered" selected="@(order.OrderStatus == "Delivered")">Delivered</option>
+                                <option value="Cancelled" selected="@(order.OrderStatus == "Cancelled")">Cancelled</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-primary fw-bold">Update</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

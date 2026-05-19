@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="RigCrafter.BLL/RigCrafter.BLL.csproj" />
+  <Project Path="RigCrafter.DAL/RigCrafter.DAL.csproj" />
+  <Project Path="RigCrafter.Web/RigCrafter.Web.csproj" />
+</Solution>

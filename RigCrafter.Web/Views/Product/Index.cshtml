@@ -1,0 +1,94 @@
+﻿@model RigCrafter.Web.Models.CatalogViewModel
+@{
+    ViewData["Title"] = "Hardware Catalog";
+}
+
+<h2 class="mb-4 fw-bold">PC Hardware Catalog</h2>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Filter Parts</h5>
+            </div>
+            <div class="card-body">
+                <form id="filterForm" asp-controller="Product" asp-action="Index" method="get">
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Category</label>
+                        <select name="categoryId" class="form-select">
+                            <option value="">-- All Categories --</option>
+                            @foreach (var cat in Model.Categories)
+                            {
+                                if (Model.SelectedCategoryId == cat.Id)
+                                {
+                                    <option value="@cat.Id" selected>@cat.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@cat.Id">@cat.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="fw-bold">Max Price ($)</label>
+                        <input type="number" name="maxPrice" class="form-control" value="@Model.MaxPrice" placeholder="e.g., 500" step="0.01" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">Apply Filters</button>
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary w-100 mt-2">Clear Filters</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+
+        <div class="mb-4">
+            <div class="input-group shadow-sm">
+                <input type="text" name="searchString" form="filterForm" class="form-control form-control-lg" value="@Model.SearchString" placeholder="Search for hardware (e.g., Ryzen, ASUS...)" />
+                <button type="submit" form="filterForm" class="btn btn-primary fw-bold px-4">Search</button>
+            </div>
+        </div>
+
+        <div class="row">
+            @if (!Model.Products.Any())
+            {
+                <div class="col-12 text-center mt-5">
+                    <h4 class="text-muted">No hardware found matching your filters.</h4>
+                </div>
+            }
+            else
+            {
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <span class="badge bg-secondary mb-2">@product.Category.Name</span>
+                                <h5 class="card-title fw-bold">@product.Name</h5>
+                                <p class="card-text text-muted small">@product.Description</p>
+                                <h4 class="text-success fw-bold">$@product.Price</h4>
+                            </div>
+                            <div class="card-footer bg-white border-top-0">
+                                @if (product.StockQuantity > 0)
+                                {
+                                    <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <button type="submit" class="btn btn-dark w-100 fw-bold">Add to Cart</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-danger w-100 fw-bold" disabled>Stock Out</button>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

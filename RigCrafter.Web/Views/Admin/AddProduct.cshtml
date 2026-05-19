@@ -1,0 +1,48 @@
+﻿@model RigCrafter.DAL.Models.Product
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<h2 class="fw-bold mb-4 text-success">➕ Add New Hardware</h2>
+
+<div class="card shadow-sm border-0 bg-light col-md-8">
+    <div class="card-body p-4">
+        <form asp-action="AddProduct" method="post">
+
+            <div class="mb-3">
+                <label class="fw-bold">Product Name</label>
+                <input type="text" name="Name" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-bold">Category</label>
+                <select name="CategoryId" class="form-select" required>
+                    <option value="">-- Select Category --</option>
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+                        <option value="@cat.Id">@cat.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="fw-bold">Description</label>
+                <textarea name="Description" class="form-control" rows="3" required></textarea>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <label class="fw-bold">Price ($)</label>
+                    <input type="number" name="Price" class="form-control" step="0.01" required />
+                </div>
+                <div class="col-md-6">
+                    <label class="fw-bold">Initial Stock</label>
+                    <input type="number" name="StockQuantity" class="form-control" required />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success fw-bold w-100 fs-5">Save Product</button>
+            <a asp-action="ManageProducts" class="btn btn-outline-secondary w-100 mt-2 fw-bold">Cancel</a>
+        </form>
+    </div>
+</div>
