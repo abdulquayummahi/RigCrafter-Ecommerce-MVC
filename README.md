@@ -38,11 +38,3 @@ The application strictly follows an N-Tier architecture to ensure a clear separa
 ![Platform View 7](7.png)
 ![Platform View 8](8.png)
 ![Platform View 9](9.png)
-
-## 🛠️ Local Setup & Installation
-
-To run this project locally, clone the repository and set up your SQL Server database.
-
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/YourUsername/RigCrafter.git](https://github.com/YourUsername/RigCrafter.git)
